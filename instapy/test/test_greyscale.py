@@ -11,7 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
+
 # This script tests the greyscale() function
+
+# greyscale() function converts a color image into greyscale
+# Input: string of path for an image file in .jpg, .jpeg, .png, .tiff format
+# Output: an image file in .jpg, .jpeg, .png, .tiff format
 
 # Essentially, both the input and output of the greyscale function are images.
 # But the function will convert the image into a matrix contaning RGB values, and just perform matrix manipulation.
@@ -47,7 +52,7 @@ exp_output1 = np.array([[[18.1,36.2,72.4],
                          ])
 
 def test_greyscale1():
-    assert greyscale(input1) == exp_output1, "Greyscale has been calculated wrong"
+    assert greyscale(input1) == exp_output1, "The greyscale function does not work properly"
 
 # input: greyscale image 2
 input2 = np.array([[[10,20,30],
@@ -75,3 +80,8 @@ exp_output2 = np.array([[[10,20,30],
 
 def test_greyscale2():
     assert greyscale(input2) == exp_output2, "A greyscale image should still be greyscale"
+
+
+# We also want to test the case that when the input file format is not an image (it should throw an error),
+# but we do not know how to do it yet.
+# We will do some research and include it in the next milestone.
