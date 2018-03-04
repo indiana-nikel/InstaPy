@@ -6,8 +6,8 @@
 # March 2018
 # This script tests the function from flip.R.
 
-# This script tests flip function of InstaPy package.
-# This function flips an image. It takes an argument for direction from the user: horizontal or vertical.
+# This script tests blur function of InstaPy package.
+# This function blurs an image. 
 # Input  : An image in .jpg.jpeg.png,.tiff format
 # Output : A flipped image in .jpg.jpeg.png,.tiff format
 
@@ -33,7 +33,7 @@ input1 = np.array([[[10, 20, 30, 40, 50],
                     [250, 210, 220, 230, 240]]   #B values
                    ])
 
-# expected output: greyscale image 1
+# expected output: blur image 1
 exp_output1 = np.array([[[30, 34.4444, 33.3333],
                          [34.4444, 33.3333, 26.6666],
                          [33.3333, 26.6666, 25.5555]],  #R values
@@ -45,7 +45,7 @@ exp_output1 = np.array([[[30, 34.4444, 33.3333],
                          [233.3333, 226.6666, 225.5555]]   #B values
                         ])
 
-#Check if image is blurredcorrectly
+#Check if image is blurred correctly
 
 #Blur
 def test_blur1(img):
