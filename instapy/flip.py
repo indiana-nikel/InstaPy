@@ -47,6 +47,7 @@ def flip(img, direction):
 
     #Display flipped image to user
     skimage.io.imshow(output_mat)
+    
     #Save flipped image in current folder
     output_path=os.path.splitext(img)[0] +'_flip' + os.path.splitext(img)[1]
     plt.imsave(output_path,output_mat)
