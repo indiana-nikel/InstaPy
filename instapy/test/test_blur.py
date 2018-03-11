@@ -12,6 +12,10 @@
 # Output : A flipped image in .jpg.jpeg.png,.tiff format
 
 import numpy as np
+from scipy.ndimage.filters import convolve
+import skimage.io
+import matplotlib.pyplot as plt
+import sys
 import pytest
 from InstaPy import blur
 
@@ -33,6 +37,8 @@ input1 = np.array([[[10, 20, 30, 40, 50],
                     [250, 210, 220, 230, 240]]   #B values
                    ])
 
+skimage.io.imsave("./test_img/blur/input1.jpg", input1)
+
 # expected output: blur image 1
 exp_output1 = np.array([[[30, 34.4444, 33.3333],
                          [34.4444, 33.3333, 26.6666],
@@ -49,8 +55,9 @@ exp_output1 = np.array([[[30, 34.4444, 33.3333],
 
 #Blur
 def test_blur1(img):
-    assert blur(input1) == exp_output1, "The flip function does not work properly"
-
+    blur("./test_img/blur/input1.jpg")
+    output = skimage.io.imread("blur.jpg")
+    assert output == exp_output1, "The blur function does not work properly"
 
 #In case the intensity values are not in range of 0-255
 
