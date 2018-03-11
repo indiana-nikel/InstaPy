@@ -55,7 +55,7 @@ To install InstaPy, follow these instructions:
 
 #### Usage
 
-```library(InstaPy)```
+```import InstaPy```
 
 1.```flip(img_path,direction,output_path)```
 
