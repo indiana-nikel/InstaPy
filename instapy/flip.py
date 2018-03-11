@@ -15,10 +15,13 @@ import sys
 import os
 %matplotlib inline
 
-def flip(img, direction):
+def flip(img, direction, output_path):
     '''
     Flips an image in either horizonatl or vertical direction
-    Input: string of path for an image file in .jpg, .jpeg, .png, .tiff format
+    Arguments:
+    	img: path of input file
+    	direction: direction of flip, horizontal="h", vertical = "v"
+    	output_path: path where output should be saved
     Output: an image file in .jpg, .jpeg, .png, .tiff format
     '''
     
@@ -46,8 +49,7 @@ def flip(img, direction):
     output_mat=np.array(output_mat, dtype=np.uint8)
 
     #Display flipped image to user
-    skimage.io.imshow(output_mat)
+    #skimage.io.imshow(output_mat)
     
-    #Save flipped image in current folder
-    output_path=os.path.splitext(img)[0] +'_flip' + os.path.splitext(img)[1]
+    #Save flipped image 
     plt.imsave(output_path,output_mat)
