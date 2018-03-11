@@ -12,10 +12,8 @@
 # See the License for the specific language governing permissions and limitations under the License.
 
 import numpy as np
-from scipy.ndimage.filters import convolve
 import skimage.io
 import matplotlib.pyplot as plt
-import sys
 
 def blur(img):
     '''
@@ -41,5 +39,3 @@ def blur(img):
             output_img[i-1][j-1] = new_pix
 
     skimage.io.imsave("blur.jpg", output_img)
-
-

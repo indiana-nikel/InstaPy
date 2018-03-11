@@ -7,15 +7,13 @@
 # This script tests the function from flip.R.
 
 # This script tests blur function of InstaPy package.
-# This function blurs an image. 
+# This function blurs an image.
 # Input  : An image in .jpg.jpeg.png,.tiff format
 # Output : A flipped image in .jpg.jpeg.png,.tiff format
 
 import numpy as np
-from scipy.ndimage.filters import convolve
 import skimage.io
 import matplotlib.pyplot as plt
-import sys
 import pytest
 from InstaPy import blur
 
