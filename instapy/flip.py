@@ -18,7 +18,10 @@ import os
 def flip(img, direction, output_path):
     '''
     Flips an image in either horizonatl or vertical direction
-    Input: string of path for an image file in .jpg, .jpeg, .png, .tiff format
+    Arguments:
+    	img: path of input file
+    	direction: direction of flip, horizontal="h", vertical = "v"
+    	output_path: path where output should be saved
     Output: an image file in .jpg, .jpeg, .png, .tiff format
     '''
     
