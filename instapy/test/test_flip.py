@@ -12,63 +12,60 @@
 # Output : A flipped image in .jpg.jpeg.png,.tiff format
 
 import numpy as np
+import matplotlib.pyplot as plt
 import pytest
 from InstaPy import flip
 
 #Define test image for horizontal flip
 
-img_h=np.array([[255,  0,  0 ],
-                [255, 255,255],
-                [255,  0,  0 ]
-                ])
+img_horiz = np.array([[[255,  0,  0 ], [255,  0,  0 ], [255,  0,  0 ]],
+                      [[255, 255,255], [255, 255,255], [255, 255,255]],
+                      [[255,  0,  0 ], [255,  0,  0 ], [255,  0,  0 ]]], dtype = "uint8")
+
                 
 #Define test image for vertical flip
 
-img_v=np.array([[255, 255, 255],
-                [ 0 , 255,  0 ],
-                [ 0 , 255,  0 ]
-                ])
-                
+img_vert =  np.array([[[255, 255, 255 ], [255, 255, 255  ], [255, 255, 255  ]],
+                      [[ 0 , 255,  0  ], [  0 , 255,  0  ], [  0 , 255,  0  ]],
+                      [[ 0 , 255,  0  ], [  0 , 255,  0  ], [  0 , 255,  0  ]]], dtype = "uint8")
+
+
+
 #Expected image matrix for horizontal flip
 
-img_h_e=np.array([[ 0 ,  0 , 255],
-                  [255, 255, 255],
-                  [ 0  , 0 , 255]
-                ])
+img_horiz_exp = np.array([[[0,  0,   255], [0, 0,  255  ], [0,  0,  255  ]],
+                          [[255, 255,255], [255, 255,255], [255, 255,255]],
+                          [[0,  0,   255], [0,  0,  255 ], [0,  0,  255 ]]], dtype = "uint8")
+ 
                 
 #Expected image matrix for vertical flip
 
-img_v_e=np.array([[  0   , 255 ,  0 ],
-                  [  0   , 255 ,  0 ],
-                  [ 255  , 255 , 255]
-                ])
-                
+img_vert_exp =  np.array([[[0   , 255,  0   ], [  0 , 255,  0  ], [  0 , 255,  0 ]],
+                          [[0   , 255,  0   ], [  0 , 255,  0  ], [  0 , 255,  0  ]],
+                          [[255 , 255,  255 ], [255 , 255, 255 ], [ 255 ,255, 255  ]]], dtype = "uint8")
+                          
+                          
+                          
+#Saving test images
+plt.imsave("./test_img/img_horiz.jpg",img_horiz)
+plt.imsave("./test_img/img_vert.jpg",img_vert)
+
+
 #Check if image is flipped correctly
 
 #Horizontal flip
-def test_flip1(img, direction):
-    assert flip(img_h, direction='h') == img_h_e, "The flip function does not work properly"
-    
+def test_flip1():
+    flip("./test_img/img_horiz.jpg", "h", "./test_img/img_horiz_flip.jpg")
+    output = plt.imread("./test_img/img_horiz_flip.jpg")[:, :, :3]
+    assert (output == img_horiz_exp).all(), "The flip function does not work properly"
+plt.imsave("./test_img/img_vert.jpg",img_vert)
 
 #Vertical flip
-def test_flip2(img, direction):
-    assert flip(img_v, direction='v') == img_v_e, "The flip function does not work properly"
+def test_flip2():
+    flip("./test_img/img_vert.jpg", "h", "./test_img/img_vert_flip.jpg")
+    output = plt.imread("./test_img/img_vert_flip.jpg")[:, :, :3]
+    assert (output == img_vert_exp).all(), "The flip function does not work properly"
     
-
-#In case the flip direction is not one of the accepted arguments
-
-def test_flip3(img, direction):
+#Test for argument validity: In case the flip direction is not one of the accepted arguments
+def test_flip3():
     assert direction in ["h","v"]   , "Incorrect flip direction"
-    
-
-#In case the intensity values are nt in range of 0-255
-
-def test_flip4(img, direction):
-    assert np.max(img_h) < 255, "Intensity values are incorrect"
-    
-def test_flip5(img, direction):
-    assert np.max(img_h) >=0 , "Intensity values are incorrect"
-    
-
-    
-    
