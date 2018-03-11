@@ -12,76 +12,67 @@
 # See the License for the specific language governing permissions and limitations under the License.
 
 
-# This script tests the greyscale() function
+# This script tests the greyscale() function.
 
-# greyscale() function converts a color image into greyscale
-# Input: string of path for an image file in .jpg, .jpeg, .png, .tiff format
-# Output: an image file in .jpg, .jpeg, .png, .tiff format
+# greyscale(input_path, output_path) converts a color image into greyscale
+# Input: input_path: string, path for the input image file
+#        output_path: string, path for the output image file
+# Output: an image file at the specified output path
 
-# Essentially, both the input and output of the greyscale function are images.
-# But the function will convert the image into a matrix contaning RGB values, and just perform matrix manipulation.
-# Therefore, for test purposes, the input and output of the test function will just be matrices to test
-# if the matrix manipulation works as expected.
 
 import numpy as np
+import matplotlib.pyplot as plt
 import pytest
 from InstaPy import greyscale
 
-# input color: image 1
-input1 = np.array([[[10,20,40],
-                    [20,40,10],
-                    [40,10,20]],   #R values
-                   [[20,40,80],
-                    [40,80,20],
-                    [80,20,40]],   #G values
-                   [[30,60,120],
-                    [60,120,30],
-                    [120,30,60]]   #B values
-                  ])
+# test_img1: color image
+test_img1 = np.array([[[ 10,  20,  40], [ 20,  40,  10], [ 40,  10,  20]],
+                      [[ 40,  80, 160], [ 80, 160,  40], [160,  40,  80]],
+                      [[ 60, 120, 240], [120, 240,  60], [240,  60, 120]]], dtype = "uint8")
 
-# expected output: greyscale image 1
-exp_output1 = np.array([[[18.1,36.2,72.4],
-                         [36.2,72.4,18.1],
-                         [72.4,18.1,36.2]],  #R values
-                        [[18.1,36.2,72.4],
-                         [36.2,72.4,18.1],
-                         [72.4,18.1,36.2]],  #G values
-                        [[18.1,36.2,72.4],
-                         [36.2,72.4,18.1],
-                         [72.4,18.1,36.2]]   #B values
-                         ])
+# test_img1_gs: expected greyscale image
+test_img1_gs = np.array([[[ 19,  19,  19], [ 31,  31,  31], [ 20,  20,  20]],
+                         [[ 77,  77,  77], [123, 123, 123], [ 80,  80,  80]],
+                         [[115, 115, 115], [184, 184, 184], [121, 121, 121]]], dtype = "uint8")
 
+plt.imsave("./test_img/test_img1.jpg", test_img1)
+
+# test if the greyscale function works properly
 def test_greyscale1():
-    assert greyscale(input1) == exp_output1, "The greyscale function does not work properly"
+    greyscale("./test_img/test_img1.jpg", "./test_img/test_img1_gs.jpg")
+    output = plt.imread("./test_img/test_img1_gs.jpg")[:, :, :3]
+    assert (output == test_img1_gs).all(), "The greyscale function does not work properly."
 
-# input: greyscale image 2
-input2 = np.array([[[10,20,30],
-                    [40,50,60],
-                    [70,80,90]],   #R values
-                   [[10,20,30],
-                    [40,50,60],
-                    [70,80,90]],   #G values
-                   [[10,20,30],
-                    [40,50,60],
-                    [70,80,90]]    #B values
-                  ])
+# test_img2: greyscale image
+test_img2 = np.array([[[ 19,  19,  19], [ 31,  31,  31], [ 20,  20,  20]],
+                      [[ 77,  77,  77], [123, 123, 123], [ 80,  80,  80]],
+                      [[115, 115, 115], [184, 184, 184], [121, 121, 121]]], dtype = "uint8")
 
-# expected output: identical greyscale image 2
-exp_output2 = np.array([[[10,20,30],
-                         [40,50,60],
-                         [70,80,90]],   #R values
-                        [[10,20,30],
-                         [40,50,60],
-                         [70,80,90]],   #G values
-                        [[10,20,30],
-                         [40,50,60],
-                         [70,80,90]]    #B values
-                       ])
+plt.imsave("./test_img/test_img2.jpg", test_img2)
 
+# test if the greyscale function changes a greyscale image
 def test_greyscale2():
-    assert greyscale(input2) == exp_output2, "A greyscale image should still be greyscale"
+    greyscale("./test_img/test_img2.jpg", "./test_img/test_img2_gs.jpg")
+    output = plt.imread("./test_img/test_img2_gs.jpg")[:, :, :3]
+    assert (output == test_img2).all(), "The greyscale function should not change a greyscale image."
 
+# test of exception handling for milestone 3, not required in this milestone    
+def test_non_string_input():
+    with pytest.raises(TypeError):
+        greyscale(123, "./test_img/test_img1_gs.jpg")
 
-# We also want to test the case that when the input file format is not an image (it should throw an error),
-# but we do not know how to do it yet.
-# We will do some research and include it in the next milestone.
+def test_nonexistent_input_path():
+    with pytest.raises(FileNotFoundError):
+        greyscale("./123/456.jpg", "./test_img/test_img1_gs.jpg")
+
+def test_non_image_input_file():
+    with pytest.raises(OSError):
+        greyscale("./test_img/test.pdf", "./test_img/test_img1_gs.jpg")
+
+def test_non_string_output():
+    with pytest.raises(TypeError):
+        greyscale("./test_img/test_img1.jpg", 123)
+
+def test_nonexistent_output_path():
+    with pytest.raises(FileNotFoundError):
+        greyscale("./test_img/test_img1.jpg", "./123/456.jpg")
