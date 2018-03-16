@@ -1,7 +1,0 @@
-{
-  "instapy/test/test_blur.py::test_blur1": true,
-  "instapy/test/test_blur.py::test_blur2": true,
-  "instapy/test/test_blur.py::test_blur3": true,
-  "instapy/test/test_flip.py": true,
-  "instapy/test/test_greyscale.py": true
-}

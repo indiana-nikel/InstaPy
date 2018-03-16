@@ -14,7 +14,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pytest
-from InstaPy import flip
+#from InstaPy import flip
 
 #Define test image for horizontal flip
 
@@ -47,23 +47,24 @@ img_vert_exp =  np.array([[[0   , 255,  0   ], [  0 , 255,  0  ], [  0 , 255,  0
                           
                           
 #Saving test images
-plt.imsave("./test_img/img_horiz.jpg",img_horiz)
-plt.imsave("./test_img/img_vert.jpg",img_vert)
+plt.imsave("img_horiz.png",img_horiz)
+plt.imsave("img_vert.png",img_vert)
 
 
 #Check if image is flipped correctly
 
 #Horizontal flip
 def test_flip1():
-    flip("./test_img/img_horiz.jpg", "h", "./test_img/img_horiz_flip.jpg")
-    output = plt.imread("./test_img/img_horiz_flip.jpg")[:, :, :3]
+    flip("img_horiz.png", "h")
+    output = plt.imread("flipped.png")[:, :, :3]
     assert (output == img_horiz_exp).all(), "The flip function does not work properly"
-plt.imsave("./test_img/img_vert.jpg",img_vert)
+    
+#plt.imsave("./test_img/img_vert.jpg",img_vert)
 
 #Vertical flip
 def test_flip2():
-    flip("./test_img/img_vert.jpg", "h", "./test_img/img_vert_flip.jpg")
-    output = plt.imread("./test_img/img_vert_flip.jpg")[:, :, :3]
+    flip("img_vert.png", "v")
+    output = plt.imread("flipped.png")[:, :, :3]
     assert (output == img_vert_exp).all(), "The flip function does not work properly"
     
 #Test for argument validity: In case the flip direction is not one of the accepted arguments
