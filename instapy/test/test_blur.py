@@ -14,10 +14,10 @@
 import numpy as np
 import skimage.io
 import pytest
-from InstaPy import blur
+#from InstaPy import blur
 
 # input color: image 1
-input = np.array([[[10, 20, 30, 40, 50],
+input2 = np.array([[[10, 20, 30, 40, 50],
                    [20, 30, 40, 50, 10],
                    [30, 40, 50, 10, 20],
                    [40, 50, 10, 20, 30],
@@ -34,10 +34,17 @@ input = np.array([[[10, 20, 30, 40, 50],
                    [250, 210, 220, 230, 240]]   #B values
                   ])
 
-skimage.io.imsave("./test_img/blur/input.png", input)
+input = np.array([[[10, 110, 210], [20, 120, 220], [30, 130, 230], [40, 140, 240], [50, 150, 250]],
+                  [[20, 120, 220], [30, 130, 230], [40, 140, 240], [50, 150, 250], [10, 110, 210]],
+                  [[30, 130, 230], [40, 140, 240], [50, 150, 250], [10, 110, 210], [20, 120, 220]],
+                  [[40, 140, 240], [50, 150, 250], [10, 110, 210], [20, 120, 220], [30, 130, 230]],
+                  [[50, 150, 250], [10, 110, 210], [20, 120, 220], [30, 130, 230], [40, 140, 240]]],
+                 dtype="uint8")
+
+skimage.io.imsave("input.png", input)
 
 # expected output: blur image 1
-exp_output = np.array([[[30, 34.4444, 33.3333],
+exp_output1 = np.array([[[30, 34.4444, 33.3333],
                         [34.4444, 33.3333, 26.6666],
                         [33.3333, 26.6666, 25.5555]],  #R values
                        [[130, 134.4444, 133.3333],
@@ -48,11 +55,16 @@ exp_output = np.array([[[30, 34.4444, 33.3333],
                         [233.3333, 226.6666, 225.5555]]   #B values
                        ])
 
+exp_output = np.array([[[30, 130, 230], [34, 134, 234], [33, 133, 233]],
+                       [[34, 134, 234], [33, 133, 233], [27, 127, 227]],
+                       [[33, 133, 233], [27, 127, 227], [26, 126, 226]]],
+                    dtype="uint8")
+
 #Check if image is blurred correctly
 
 #Blur
 def test_blur1(img):
-    blur("./test_img/blur/input.png")
+    blur("input.png")
     output = skimage.io.imread("blur.png")
     assert output == exp_output, "The blur function does not work properly"
 
