@@ -1,0 +1,4 @@
+{
+  "instapy/test/test_blur.py": true,
+  "instapy/test/test_greyscale.py": true
+}
