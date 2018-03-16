@@ -13,13 +13,12 @@
 
 import numpy as np
 import skimage.io
-import matplotlib.pyplot as plt
 
 def blur(img):
     '''
     Blurs an image
-    Input: string of path for an image file in .jpg, .jpeg, .png, .tiff format
-    Output: an image file in .jpg, .jpeg, .png, .tiff format
+    Input: string of path for an image file in .png format
+    Output: an image file in .png format
     '''
     input_img = skimage.io.imread(img)
     output_img = np.ones((len(input_img)-2, len(input_img[0])-2, 3), dtype="uint8")
@@ -38,4 +37,4 @@ def blur(img):
             new_pix = np.round((1/9)*(tl+tm+tr+cl+tm+tr+bl+bm+br))
             output_img[i-1][j-1] = new_pix
 
-    skimage.io.imsave("blur.jpg", output_img)
+    skimage.io.imsave("blur.png", output_img)
