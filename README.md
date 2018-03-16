@@ -45,3 +45,54 @@ This is a transformation function which flips the image either horizontally or v
 
 #### Python ecosystem
 "A picture paints a thousand words", however, a well-constructed image speaks even more than that without having to rely on a written description. We want to explore the elements of filters and their implementation in Python. A similar module called ["ImageFilter"](http://pillow.readthedocs.io/en/5.0.0/reference/ImageFilter.html) exists in Python which has standard filters like blur, sharpen, emboss among others.  We have started with a few basic functions but want to work towards building more advanced filters similar to the ones provided by Instagram.
+
+#### Installation
+
+To install InstaPy, follow these instructions:
+
+1. Input the following into the Terminal: pip install git+https://github.com/UBC-MDS/InstaPy.git
+2. You are good to go and can start using InstaPy!
+
+#### Usage
+
+```import InstaPy```
+
+1.```flip(img_path,direction,output_path)```
+
+Aruguments:
+
+* ```img_path```: path to input image
+* ```direction```: direction of flip. "h" (horizontal) or "v"(vertical)
+* ```output_path```: path to output image
+* Example: ```flip("./img.jpg", "h","./img_flip.jpg")```
+
+2.```greyscale(img_path, output_path)```
+
+Aruguments:
+
+* ```img_path```: path to input image
+* ```output_path```: path to output image
+* Example: ```greyscale("./img.jpg", "./img_gs.jpg")```
+
+3.```blur(img_path)```
+
+Aruguments:
+
+* ```img_path```: path to input image
+* Example: ```blur("./img.jpg", "./img_blur.jpg")```
+
+
+
+#### Package dependencies
+
+```numpy```
+
+```scipy.ndimage.filters```
+
+```skimage.io```
+
+```matplotlib.pyplot```
+
+```sys```
+
+```os```
