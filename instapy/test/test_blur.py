@@ -14,7 +14,7 @@
 import numpy as np
 import skimage.io
 import pytest
-#from InstaPy import blur
+from instapy.blur import blur
 
 # input color: image 1
 input = np.array([[[10, 110, 210], [20, 120, 220], [30, 130, 230], [40, 140, 240], [50, 150, 250]],
@@ -24,7 +24,7 @@ input = np.array([[[10, 110, 210], [20, 120, 220], [30, 130, 230], [40, 140, 240
                   [[50, 150, 250], [10, 110, 210], [20, 120, 220], [30, 130, 230], [40, 140, 240]]],
                  dtype="uint8")
 
-skimage.io.imsave("input.png", input)
+skimage.io.imsave("instapy/test/test_img/blur/input.png", input)
 
 # expected output: blur image 1
 exp_output = np.array([[[30, 130, 230], [34, 134, 234], [33, 133, 233]],
@@ -32,18 +32,36 @@ exp_output = np.array([[[30, 130, 230], [34, 134, 234], [33, 133, 233]],
                        [[33, 133, 233], [27, 127, 227], [26, 126, 226]]],
                     dtype="uint8")
 
+skimage.io.imsave("instapy/test/test_img/blur/exp_output.png", exp_output)
+
 #Check if image is blurred correctly
 
 #Blur
-def test_blur1(img):
-    blur("input.png")
-    output = skimage.io.imread("blur.png")
-    assert output == exp_output, "The blur function does not work properly"
+def test_blur1():
+    blur("instapy/test/test_img/blur/input.png", "instapy/test/test_img/blur/blur.png")
+    output = skimage.io.imread("instapy/test/test_img/blur/blur.png")
+    test_output = skimage.io.imread("instapy/test/test_img/blur/exp_output.png")
+    assert np.array_equal(output, test_output), "The blur function does not work properly"
 
-#In case the intensity values are not in range of 0-255
+#Exception Handling
+def test_non_string_input():
+    with pytest.raises(AttributeError):
+        blur(123, "instapy/test/test_img/blur/blur.png")
 
-def test_blur2(img):
-    assert np.max(input1) < 255, "Intensity values are incorrect"
+def test_non_string_output():
+    with pytest.raises(AttributeError):
+        blur("instapy/test/test_img/blur/input.png", 123)
 
-def test_blur3(img):
-    assert np.max(input1) >=0 , "Intensity values are incorrect"
+def test_nonexistent_input_path():
+    with pytest.raises(FileNotFoundError):
+        blur("./123/456.png", "instapy/test/test_img/blur/blur.png")
+
+def test_nonexistent_output_path():
+    with pytest.raises(FileNotFoundError):
+        blur("instapy/test/test_img/blur/input.png", "./123/456.jpg")
+
+def test_non_image_input_file():
+    with pytest.raises(OSError):
+        blur("instapy/test/test_img/blur/test.pdf", "instapy/test/test_img/blur/blur.png")
+
+
