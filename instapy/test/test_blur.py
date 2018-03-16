@@ -8,8 +8,8 @@
 
 # This script tests blur function of InstaPy package.
 # This function blurs an image.
-# Input  : An image in .jpg.jpeg.png,.tiff format
-# Output : A flipped image in .jpg.jpeg.png,.tiff format
+# Input  : An image in .pngnformat
+# Output : A flipped image in .png format
 
 import numpy as np
 import skimage.io
