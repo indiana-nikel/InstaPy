@@ -21,7 +21,7 @@ def greyscale(input_path, output_path):
            output_path: string, path for the output image file
     Output: an image file at the specified output path
     '''
-    # exception handling for milestone 3, not required in this milestone
+    # exception handling
     try:
         img = plt.imread(input_path)
     except TypeError:
@@ -55,7 +55,7 @@ def greyscale(input_path, output_path):
             img_gs[i][j][1] = grey
             img_gs[i][j][2] = grey
 
-    # exception handling for milestone 3, not required in this milestone
+    # exception handling
     try:
         plt.imsave(output_path, img_gs)
     except TypeError:
